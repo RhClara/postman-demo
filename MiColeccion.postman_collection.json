@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "4efc4496-3e6a-41e1-a2a3-a6ad47568385",
+		"name": "MiColeccion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "agregar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json()\r",
+							"pm.collectionVariables.set('userID', jsonData.id)\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code should be 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"email should match\", function () {\r",
+							"    pm.expect(jsonData.email).to.be.eq(\"anamaria@hotmail.com\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"anamaria\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"anamaria@hotmail.com\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/{{visibility}}/{{version}}/users",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{visibility}}",
+						"{{version}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"const jsonData = pm.response.json()\r",
+							"pm.test(\"status should active\", function () {\r",
+							"    pm.expect(jsonData.status).to.be.eq(\"active\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"anamaria\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"anamaria@hotmail.com\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "440c20fa3fc918dff271ad66c72de74d626c15a09b54560b57b6d9cd35a9727e",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
